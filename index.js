@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 
-const token = "NjM2MDc1NzQ2NjUzMjQxMzU1.Xa7Vig.DBfUy34TKClYBRiwLKOvckI9zSY";
+const token = "NjM2MDc1NzQ2NjUzMjQxMzU1.Xa7XbQ.Iut_jFR4GWlcsB5BWcrEiaAt0GE";
 //"NjM2MDc1NzQ2NjUzMjQxMzU1.Xa6W6g.ZRl51ZupK_KSWEGioSUi9HU_zA8";
 var mongoose = require('mongoose')
 
@@ -32,7 +32,7 @@ client.on('message',(msg) =>{
             service.scrape(msg,msgTextTwo);
         }else if(msgTextOne === '!recent')
         {
-            if(msg.content.split(" " ).length <=2)
+            if(msg.content.split(" " ).length <= 1)
             {
                 LinksModel.find({}).distinct('keyWord').exec(function(err,res){
                     if(err) throw err;
@@ -54,15 +54,15 @@ client.on('message',(msg) =>{
                 });
             }else
             {
-                var text = msg.content.split(" ")[2];
-                LinksModel.find({'keyWord':text}).sort('-date').distinct('url').exec(function(err,res){
+                var text = msg.content.split(" ")[1];
+                LinksModel.find({'keyWord': new RegExp(text, 'i')}).sort('-date').distinct('keyWord').exec(function(err,res){
                     if(res.length === 0)
                     {
                         msg.channel.send("No Result found");
                     }else
                     {
                         res = res.slice(0,2);
-                        msg.channel.send("Recent searches for your query : " + text + "  \n" + res.join("\n"));
+                        msg.channel.send("Your search query " + text + " matches these past searches: \n" + res.join("\n"));
          
                     }
                 });

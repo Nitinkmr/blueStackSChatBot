@@ -1,0 +1,24 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "chat bot blueStacks",
+  "main": "node app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nitinkmr/blueStackSChatBot.git"
+  },
+  "author": "nitin kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nitinkmr/blueStackSChatBot/issues"
+  },
+  "homepage": "https://github.com/Nitinkmr/blueStackSChatBot#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^1.19.4"
+  }
+}
