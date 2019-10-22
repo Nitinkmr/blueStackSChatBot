@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 
-const token = "NjM2MDc1NzQ2NjUzMjQxMzU1.Xa7XbQ.Iut_jFR4GWlcsB5BWcrEiaAt0GE";
+const token = "NjM2MDc1NzQ2NjUzMjQxMzU1.Xa7gWQ.Wl8KyL3czMqIU9R9WbQ9DiO3L0E";
 //"NjM2MDc1NzQ2NjUzMjQxMzU1.Xa6W6g.ZRl51ZupK_KSWEGioSUi9HU_zA8";
 var mongoose = require('mongoose')
 
@@ -34,7 +34,7 @@ client.on('message',(msg) =>{
         {
             if(msg.content.split(" " ).length <= 1)
             {
-                LinksModel.find({}).distinct('keyWord').exec(function(err,res){
+                LinksModel.find({}).sort('-date').distinct('keyWord').exec(function(err,res){
                     if(err) throw err;
                     if(res.length === 0)
                     {
@@ -48,14 +48,14 @@ client.on('message',(msg) =>{
                             if( res[i] != 'undefined')
                                 final.push(res[i]);
                         }
-                        msg.channel.send("Recent games:   \n" + final.join("\n"));   
+                        msg.channel.send("Recent searches   \n" + final.join("\n"));   
                     }
                    
                 });
             }else
             {
                 var text = msg.content.split(" ")[1];
-                LinksModel.find({'keyWord': new RegExp(text, 'i')}).sort('-date').distinct('keyWord').exec(function(err,res){
+                LinksModel.find({'keyWord': new RegExp(text, 'i')}).distinct('keyWord').exec(function(err,res){
                     if(res.length === 0)
                     {
                         msg.channel.send("No Result found");
