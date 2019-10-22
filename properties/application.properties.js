@@ -15,7 +15,7 @@ var config = {
         url:"https://www.google.com/search?q="
     },
     tokens:{
-        discordapp:"NjM2MDc1NzQ2NjUzMjQxMzU1.Xa9PWg.ntFz-WLnVvzSlKkMewm7ubdVCH4"
+        discordapp:"<TOKEN>"
     },
     bot:{
         name:"bluestackNitinApplication"
