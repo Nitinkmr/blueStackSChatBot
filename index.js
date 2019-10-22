@@ -1,12 +1,14 @@
 const discord = require('discord.js');
 
-const token = "NjM2MDc1NzQ2NjUzMjQxMzU1.Xa6W6g.ZRl51ZupK_KSWEGioSUi9HU_zA8";
+const token = "NjM2MDc1NzQ2NjUzMjQxMzU1.Xa7Vig.DBfUy34TKClYBRiwLKOvckI9zSY";
+//"NjM2MDc1NzQ2NjUzMjQxMzU1.Xa6W6g.ZRl51ZupK_KSWEGioSUi9HU_zA8";
 var mongoose = require('mongoose')
 
 const client = new discord.Client();
 var LinksModel = require('./LinksModel');
 var service = require('./service');
 var conn = "mongodb://nitin:passpass1@ds137368.mlab.com:37368/trendingapps";
+
 mongoose.connect(conn, { useMongoClient: true})
 .then(()=> { console.log(`Succesfully Connected to the
         Mongodb Database  at URL : mongodb://127.0.0.1:27017/trendingApps`)})
