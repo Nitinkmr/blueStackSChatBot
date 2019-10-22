@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var config = require('../properties/application.properties');
-
+/*
+    DB connection file
+*/ 
 var dbConn = config.db.connection.url;
 mongoose.connect(dbConn, { useMongoClient: true})
 .then(()=> { console.log(`Succesfully Connected to the Mongodb Database `)})

@@ -2,7 +2,13 @@ var request = require('request');
 var cheerio = require('cheerio');
 var searchModel = require('../models/searchModel');
 const properties = require('../properties/application.properties');
+/**
+ * Service file to get recent searches and store new searched in DB
+ */
 
+ /**
+  * Below method gets last 2 recent searches from DB
+  */
 exports.getAllRecent = async function(msg)
 { 
     searchModel.find({}).sort('-date').exec(function(err,res){
@@ -34,18 +40,24 @@ exports.getAllRecent = async function(msg)
         });
     
 }
-
+ /**
+  * Below method gets last recent searches that matches the given query
+  */
 exports.getRecentForQuery = function(msg){
   
-        var text = msg.content.split(" ")[1];
-        searchModel.find({'keyWord': new RegExp(text, 'i')}).distinct('keyWord').exec(function(err,res){
+        var query = msg.content.split(" ")[1];
+        searchModel.find({'keyWord': new RegExp(query, 'i')}).distinct('keyWord').exec(function(err,res){
             if(res.length === 0)
                 msg.channel.send("No Result found");
             else
-                msg.channel.send("Your search query " + text + " matches these past searches: \n" + res.join("\n"));
+                msg.channel.send("Your search query " + query + " matches these past searches: \n" + res.join("\n"));
         });
     
 }
+
+ /**
+  * Below method scrapes the google search page for the given search query
+  */
 exports.scrape = async function(msg,searchQuery)
 {
     url = properties.google.url + searchQuery;
