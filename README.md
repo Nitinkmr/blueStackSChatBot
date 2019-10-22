@@ -1,4 +1,4 @@
-# blueStackSChatBot
+# blueStacksChatBot
 discordapp Chat bot for blueStacks
 
 ## Supported queries : 
