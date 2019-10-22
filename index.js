@@ -1,6 +1,6 @@
 const discord = require('discord.js');
 
-const token = "NjM2MDc1NzQ2NjUzMjQxMzU1.Xa7XbQ.Iut_jFR4GWlcsB5BWcrEiaAt0GE";
+const token = "<TOKEN";
 //"NjM2MDc1NzQ2NjUzMjQxMzU1.Xa6W6g.ZRl51ZupK_KSWEGioSUi9HU_zA8";
 var mongoose = require('mongoose')
 
