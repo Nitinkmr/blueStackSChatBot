@@ -24,7 +24,7 @@ client.on('message',(msg) =>{
                         msg.channel.send(`hey ${msg.author}`);
                     break;
             case '!google':
-                    var searchKeyword = query.split(" ")[1];
+                    var searchKeyword = query.split(" ").slice(1,query.length);
                     if(searchKeyword == null || searchKeyword === '' )
                         msg.channel.send('Empty search query. Please try again with valid query.');
                     else
