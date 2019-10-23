@@ -2,7 +2,7 @@
   "name": "chatbot",
   "version": "1.0.0",
   "description": "chat bot blueStacks",
-  "main": "node app.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./bin/www"
@@ -21,5 +21,8 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "nodemon": "^1.19.4"
+  },
+  "engines": {
+    "node": "10.13.0"
   }
 }
