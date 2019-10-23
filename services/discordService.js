@@ -3,7 +3,7 @@ var cheerio = require('cheerio');
 var searchModel = require('../models/searchModel');
 const properties = require('../properties/application.properties');
 const dbConnection = require('../config/DBConfig');
-const temporaryStorageService = require('./temporaryStorageService');
+//const temporaryStorageService = require('./temporaryStorageService');
 /**
  * Service file to get recent searches and store new searched in DB
  */
@@ -43,7 +43,7 @@ exports.getAllRecent = async function(msg)
         });
     }else
     {
-        temporaryStorageService.readFromFile(msg);
+        //temporaryStorageService.readFromFile(msg);
       
     }
   
@@ -109,8 +109,8 @@ exports.scrape = async function(msg,searchQuery)
             console.log(dbConnection.connection.readyState + "dbConnectionAlive");
             if(dbConnection.connection.readyState == 1)
                 newUrl.save();
-            else
-                temporaryStorageService.writeToTempStorage(newUrl);
+            // else
+            //     temporaryStorageService.writeToTempStorage(newUrl);
         }
        
         return result;
