@@ -1,4 +1,4 @@
-const discord = require('discord.js');
+const discord = require('discord');
 
 const client = new discord.Client();
 const properties = require('./properties/application.properties');
