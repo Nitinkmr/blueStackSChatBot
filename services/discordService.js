@@ -2,6 +2,8 @@ var request = require('request');
 var cheerio = require('cheerio');
 var searchModel = require('../models/searchModel');
 const properties = require('../properties/application.properties');
+const dbConnection = require('../config/DBConfig');
+const temporaryStorageService = require('./temporaryStorageService');
 /**
  * Service file to get recent searches and store new searched in DB
  */
@@ -11,7 +13,10 @@ const properties = require('../properties/application.properties');
   */
 exports.getAllRecent = async function(msg)
 { 
-    searchModel.find({}).sort('-date').exec(function(err,res){
+    //temporaryStorageService.readFromFile();
+    if(dbConnection.connection.readyState == 1)
+    {
+        searchModel.find({}).sort('-date').exec(function(err,res){
             if(err) throw err;
             if(res.length == 0)
                 msg.channel.send("No Result found");
@@ -30,14 +35,19 @@ exports.getAllRecent = async function(msg)
                         break;
                 }
                 var final = [];
-                for (var entry of map.entries()) {
-                        final.push(entry[0]);
-                 
-                }
+                for (var entry of map.entries()) 
+                        final.push(entry[0]);               
+                
                 msg.channel.send("Recent searches   \n" + final.join("\n"));   
             }
            
         });
+    }else
+    {
+        //temporaryStorageService.readFromFile();
+    }
+
+    
     
 }
  /**
@@ -60,8 +70,12 @@ exports.getRecentForQuery = function(msg){
   */
 exports.scrape = async function(msg,searchQuery)
 {
+    console.log(searchQuery);
     url = properties.google.url + searchQuery;
-    await request(url,function(error,response,html){
+    url = encodeURI(url);
+    console.log(url);
+    await request({url,encoding:null},function(error,response,html){
+        console.log(html);
         if(error)
             throw error;
         var content = cheerio.load(html);   
@@ -74,15 +88,14 @@ exports.scrape = async function(msg,searchQuery)
                 && div[index]['children'][0] != null
                 && div[index]['children'][0]['attribs'] != null
                 && div[index]['children'][0]['attribs']['href'] != null )
-             {
-                 var tempUrl = div[index]['children'][0]['attribs']['href'];
+            {
+                var tempUrl = div[index]['children'][0]['attribs']['href'];
 
-                 tempUrl = tempUrl.substr(7,tempUrl.length);
-                 console.log(tempUrl);
+                tempUrl = tempUrl.substr(7,tempUrl.length);
                 result.push(tempUrl + "\n");
-             }  
+            }  
              
-             if(result.length == 5)
+            if(result.length == 5)
                 break;
         }   
        
@@ -94,7 +107,11 @@ exports.scrape = async function(msg,searchQuery)
                 date : Date.now(),
                 keyWord:searchQuery
             });
-            newUrl.save();
+            console.log(dbConnection.connection.readyState + "dbConnectionAlive");
+            if(dbConnection.connection.readyState == 1)
+                newUrl.save();
+            else
+                temporaryStorageService.writeToTempStorage(newUrl);
         }
        
         return result;
