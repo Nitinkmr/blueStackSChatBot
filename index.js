@@ -28,7 +28,7 @@ client.on('message',(msg) =>{
                     if(searchKeyword == null || searchKeyword === '' )
                         msg.channel.send('Empty search query. Please try again with valid query.');
                     else
-                        discordService.scrape(msg,searchKeyword);
+                        discordService.scrape(msg,searchKeyword.join(" "));
                     break;
             case '!recent':
                     var searchKeyword = query.split(" ")[1];

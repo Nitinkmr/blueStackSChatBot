@@ -74,7 +74,7 @@ exports.scrape = async function(msg,searchQuery)
     url = encodeURI(url);
     console.log(url);
     await request({url,encoding:null},function(error,response,html){
-        console.log(html);
+       
         if(error)
             throw error;
         var content = cheerio.load(html);   
@@ -106,7 +106,7 @@ exports.scrape = async function(msg,searchQuery)
                 date : Date.now(),
                 keyWord:searchQuery
             });
-            console.log(dbConnection.connection.readyState + "dbConnectionAlive");
+          //  console.log(dbConnection.connection.readyState + "dbConnectionAlive");
             if(dbConnection.connection.readyState == 1)
                 newUrl.save();
             // else
