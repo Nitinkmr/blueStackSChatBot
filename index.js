@@ -18,7 +18,10 @@ client.on('message',(msg) =>{
         switch(query.split(" ")[0])
         {
             case 'hi' :
-                    msg.channel.send(`hey ${msg.author}`);
+                    if(query.split(" ").length > 1)
+                        msg.channel.send('Invalid Command. Please try again with valid command.');
+                    else
+                        msg.channel.send(`hey ${msg.author}`);
                     break;
             case '!google':
                     var searchKeyword = query.split(" ")[1];

@@ -13,7 +13,6 @@ const temporaryStorageService = require('./temporaryStorageService');
   */
 exports.getAllRecent = async function(msg)
 { 
-    //temporaryStorageService.readFromFile();
     if(dbConnection.connection.readyState == 1)
     {
         searchModel.find({}).sort('-date').exec(function(err,res){
@@ -44,12 +43,13 @@ exports.getAllRecent = async function(msg)
         });
     }else
     {
-        //temporaryStorageService.readFromFile();
+        temporaryStorageService.readFromFile(msg);
+      
     }
-
-    
-    
+  
 }
+
+
  /**
   * Below method gets last recent searches that matches the given query
   */
@@ -61,8 +61,7 @@ exports.getRecentForQuery = function(msg){
                 msg.channel.send("No Result found");
             else
                 msg.channel.send("Your search query " + query + " matches these past searches: \n" + res.join("\n"));
-        });
-    
+        });  
 }
 
  /**
